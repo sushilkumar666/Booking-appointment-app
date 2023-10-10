@@ -3,6 +3,8 @@ const nameInput = document.querySelector('#name');
 const emailInput = document.querySelector('#email');
 const msg = document.querySelector('.msg');
 const userList = document.querySelector('#users');
+const phoneInput = document.querySelector('#phone');
+console.log(phoneInput);
 
 // Listen for form submit
 myForm.addEventListener('submit', onSubmit);
@@ -10,7 +12,7 @@ myForm.addEventListener('submit', onSubmit);
 function onSubmit(e) {
   e.preventDefault();
   
-  if(nameInput.value === '' || emailInput.value === '') {
+  if(nameInput.value === '' || emailInput.value === '' || phoneInput == '') {
     // alert('Please enter all fields');
     msg.classList.add('error');
     msg.innerHTML = 'Please enter all fields';
@@ -22,7 +24,7 @@ function onSubmit(e) {
     const li = document.createElement('li');
 
     // Add text node with input values
-    li.appendChild(document.createTextNode(`${nameInput.value}: ${emailInput.value}`));
+    li.appendChild(document.createTextNode(`${nameInput.value} - ${emailInput.value} - ${phoneInput.value}`));
 
     // Add HTML
     // li.innerHTML = `<strong>${nameInput.value}</strong>e: ${emailInput.value}`;
@@ -38,7 +40,7 @@ function onSubmit(e) {
 
     // Append to ul
     userList.appendChild(li);
-    addUserToLocalStorage(nameInput.value, emailInput.value);
+    addUserToLocalStorage(nameInput.value, emailInput.value, phoneInput.value);
 
     // Clear fields
     nameInput.value = '';
@@ -46,12 +48,13 @@ function onSubmit(e) {
 
 
   }
-  function addUserToLocalStorage(nameInput, emailInput) {
+  function addUserToLocalStorage(nameInput, emailInput, phoneInput) {
     // Generate a unique key for the user (e.g., using a timestamp)
-    const userKey = Date.now().toString();
+    const userKey = emailInput;
     const newUser = {
         userName :  nameInput,
-        email    :  emailInput
+        email    :  emailInput,
+        phone    : phoneInput
     }
     
     // Store the user data in localStorage using the generated key
