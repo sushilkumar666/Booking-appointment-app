@@ -28,16 +28,33 @@ function onSubmit(e) {
     // li.innerHTML = `<strong>${nameInput.value}</strong>e: ${emailInput.value}`;
 
     // storing user's details inside local storage
-    localStorage.setItem('username', nameInput.value);
-    localStorage.setItem('email', emailInput.value);
+    // localStorage.setItem('username', nameInput.value);
+    // localStorage.setItem('email', emailInput.value);
+
+
+    // storing uniquely every user details
+   
+
 
     // Append to ul
     userList.appendChild(li);
+    addUserToLocalStorage(nameInput.value, emailInput.value);
 
     // Clear fields
     nameInput.value = '';
     emailInput.value = '';
 
 
+  }
+  function addUserToLocalStorage(nameInput, emailInput) {
+    // Generate a unique key for the user (e.g., using a timestamp)
+    const userKey = Date.now().toString();
+    const newUser = {
+        userName :  nameInput,
+        email    :  emailInput
+    }
+    
+    // Store the user data in localStorage using the generated key
+    localStorage.setItem(userKey, JSON.stringify(newUser));
   }
 }
