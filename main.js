@@ -5,28 +5,57 @@ const msg = document.querySelector('.msg');
 const userList = document.querySelector('#users');
 const phoneInput = document.querySelector('#phone');
 const itemList = document.querySelector('#users');
-console.log(phoneInput);
 
 // Listen for form submit
 myForm.addEventListener('submit', onSubmit);
 itemList.addEventListener('click', onDelete)
+itemList.addEventListener('click', onEdit);
+
+function onEdit(e) {
+  var li = e.target.parentElement;
+  if (e.target.classList.contains('edit'))
+    for (let i = 0; i < localStorage.length; i++) {
+      var key = localStorage.key(i); // Get the key at index i
+      var firstChildText = li.firstChild.textContent; // Get the text content of the first child node
+      // console.log(firstChildText);
+      console.log('edit');
+
+      // Check if the key is present in the text content
+      if (firstChildText.indexOf(key) !== -1) {
+
+        data = JSON.parse(localStorage.getItem(key));
+        nameInput.value = data.userName;
+        emailInput.value = data.email;
+        phoneInput.value = data.phone;
+
+        localStorage.removeItem(key); // Remove the item from localStorage
+      }
+    }
+
+
+  itemList.removeChild(li); // Remove the <li> element from the DOM
+
+}
 
 
 function onDelete(e) {
   var li = e.target.parentElement;
-  for (let i = 0; i < localStorage.length; i++) {
-    var key = localStorage.key(i); // Get the key at index i
-    var firstChildText = li.firstChild.textContent; // Get the text content of the first child node
-    console.log(firstChildText);
-
-    // Check if the key is present in the text content
-    if (firstChildText.indexOf(key) !== -1) {
-      localStorage.removeItem(key); // Remove the item from localStorage
-    }
-  }
-
   if (e.target.classList.contains('delete')) {
-    itemList.removeChild(li); // Remove the <li> element from the DOM
+    for (let i = 0; i < localStorage.length; i++) {
+      var key = localStorage.key(i); // Get the key at index i
+      var firstChildText = li.firstChild.textContent; // Get the text content of the first child node
+      console.log('delete');
+
+
+      // Check if the key is present in the text content
+
+      localStorage.removeItem(key); // Remove the item from localStorage
+
+    }
+
+    if (e.target.classList.contains('delete')) {
+      itemList.removeChild(li); // Remove the <li> element from the DOM
+    }
   }
 }
 
@@ -48,12 +77,16 @@ function onSubmit(e) {
 
     // creating delete button 
     const deleteButton = document.createElement('button');
+    const editButton = document.createElement('button');
     deleteButton.className = "btn btn-danger btn-sm float-end delete"
+    editButton.className = "btn btn-danger btn-sm float-end mr-4 edit"
     deleteButton.appendChild(document.createTextNode('Delete'))
+    editButton.appendChild(document.createTextNode('Edit'));
 
     // Add text node with input values
     li.appendChild(document.createTextNode(`${nameInput.value} - ${emailInput.value} - ${phoneInput.value}`));
     li.appendChild(deleteButton);
+    li.appendChild(editButton);
     // Add HTML
     // li.innerHTML = `<strong>${nameInput.value}</strong>e: ${emailInput.value}`;
 
