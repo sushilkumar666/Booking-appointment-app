@@ -4,7 +4,7 @@ const emailInput = document.querySelector('#email');
 const msg = document.querySelector('.msg');
 const userList = document.querySelector('#users');
 const phoneInput = document.querySelector('#phone');
-const itemList = document.querySelector('#users');
+const itemList = document.querySelector('#users');   
 
 // Listen for form submit
 myForm.addEventListener('submit', onSubmit);
@@ -12,7 +12,7 @@ itemList.addEventListener('click', onDelete)
 itemList.addEventListener('click', onEdit);
 
 window.addEventListener('DOMContentLoaded', ()=>{
-  axios.get("https://crudcrud.com/api/c124fb0d71f24b70a79f14956de558db/appointmentApp")
+  axios.get("https://crudcrud.com/api/c124fb0d71f24b70a79f14956de558db/appointmentApp");
 }).then((response) =>{
   console.log(response);
 }).catch((error)=>{
