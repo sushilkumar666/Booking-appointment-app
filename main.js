@@ -119,6 +119,16 @@ function onSubmit(e) {
       phone: phoneInput
     }
 
+    axios.post('https://crudcrud.com/api/c124fb0d71f24b70a79f14956de558db/appointmentApp/', {
+      userName: nameInput,
+      email: emailInput,
+      phone: phoneInput
+    }).then(Response => {
+
+      console.log(Response)
+    })
+      .catch(error => console.error(error));
+
     // Store the user data in localStorage using the generated key
     localStorage.setItem(userKey, JSON.stringify(newUser));
   }
