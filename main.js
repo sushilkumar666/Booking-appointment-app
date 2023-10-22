@@ -11,6 +11,14 @@ myForm.addEventListener('submit', onSubmit);
 itemList.addEventListener('click', onDelete)
 itemList.addEventListener('click', onEdit);
 
+window.addEventListener('DOMContentLoaded', ()=>{
+  axios.get("https://crudcrud.com/api/c124fb0d71f24b70a79f14956de558db/appointmentApp")
+}).then((response) =>{
+  console.log(response);
+}).catch((error)=>{
+  console.log(error);
+})
+
 function onEdit(e) {
   var li = e.target.parentElement;
   if (e.target.classList.contains('edit'))
